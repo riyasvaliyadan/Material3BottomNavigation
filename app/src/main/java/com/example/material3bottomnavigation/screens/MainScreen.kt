@@ -1,4 +1,4 @@
-package com.example.material3bottomnavigation
+package com.example.material3bottomnavigation.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -15,9 +15,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.material3bottomnavigation.screens.HomeScreen
-import com.example.material3bottomnavigation.screens.ProfileScreen
-import com.example.material3bottomnavigation.screens.SearchScreen
+import com.example.material3bottomnavigation.BottomNavigationItem
+import com.example.material3bottomnavigation.Screens
 
 @Composable
 fun MainScreen() {
@@ -32,11 +31,13 @@ fun MainScreen() {
                     NavigationBarItem(
                         selected = navigationItem.route == currentDestination?.route,
                         label = {
-                            Text(navigationItem.label)
+                            Text(
+                                text = navigationItem.label
+                            )
                         },
                         icon = {
                             Icon(
-                                navigationItem.icon,
+                                imageVector = navigationItem.icon,
                                 contentDescription = navigationItem.label
                             )
                         },
@@ -53,25 +54,19 @@ fun MainScreen() {
                 }
             }
         }
-    ) {paddingValues ->
+    ) { paddingValues ->
         NavHost(
             navController = navController,
             startDestination = Screens.Home.route,
             modifier = Modifier.padding(paddingValues = paddingValues)) {
             composable(Screens.Home.route) {
-                HomeScreen(
-                    navController
-                )
+                HomeScreen(navController)
             }
             composable(Screens.Search.route) {
-                SearchScreen(
-                    navController
-                )
+                SearchScreen(navController)
             }
             composable(Screens.Profile.route) {
-                ProfileScreen(
-                    navController
-                )
+                ProfileScreen(navController)
             }
         }
     }
